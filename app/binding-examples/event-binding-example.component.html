@@ -18,7 +18,7 @@
 <div>
   <p>
     <label>Age: {{age}}</label>
-    <label>Age Field: {{myVar.value}}</label>
+    <label>Age Field: {{myInputVar.value}}</label>
   </p>
   <input #myInputVar (keyup.enter)="setAge(myInputVar.value)" type="number"/>
 </div>

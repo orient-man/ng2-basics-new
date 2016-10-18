@@ -9,15 +9,22 @@ import {InputsOutPutsExamplesModule} from "./inputs-outputs-examples/inputs-outp
 import {
   ViewInterpolationExamplesModule
 } from "./view-interpolation-examples/view-interpolation-examples.module";
+import {TodosListModule} from "./todos-list/todos-list.module";
 
 @NgModule({
+  // co dany moduł importuje
   imports: [
     BrowserModule,
     FormsModule,
+    // tutaj jest importowane personal-data
     ViewInterpolationExamplesModule,
     BindingExamplesModule,
-    InputsOutPutsExamplesModule
+    InputsOutPutsExamplesModule,
+    TodosListModule
     //TODO
+  ],
+  // co moduł eksportuje
+  exports: [
   ],
   declarations: [
     AppComponent

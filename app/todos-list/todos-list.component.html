@@ -1,24 +1,24 @@
 <div class="panel">
   <h3>TODOs List</h3>
   <ol class="todo-list">
-    <li>
+    <li *ngFor="let todo of todos">
       <div class="todo-item">
         <strong class="title">
-          TITLE TODO
+            {{todo.title}}
         </strong>
-        <div class="desc">TODO</div>
+        <div class="desc">{{todo.description}}</div>
         <button>Edit</button>
-        <button>Remove</button>
+        <button (click)="remove(todo.id)">Remove</button>
       </div>
     </li>
   </ol>
   <div>
     <div>
-      Title: TODO
+        Title: <input [(ngModel)]="title" />
     </div>
     <div>
-      Description: TODO
+        Description: <input [(ngModel)]="desc" />
     </div>
-    <button>Add</button>
+    <button (click)="add()">Add</button>
   </div>
 </div>

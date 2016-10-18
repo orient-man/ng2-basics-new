@@ -1,10 +1,12 @@
 <div class="personal-data">
   <h1>
     <label>Name:</label>
-    FULL_NAME_PLACEHOLDER
+    <input [(ngModel)]="fullName"/>
   </h1>
   <h3>
-    LOGIN_PLACEHOLDER
+      {{login}}
+        <input [(ngModel)]="login"/>
   </h3>
-  <p><label>email:</label> EMAIL_PLACEHOLDER</p>
+  <p><label>email:</label> {{email}}</p>
+  <input [(ngModel)]="email" (mouseenter)="onChange($event)"/>
 </div>

@@ -4,13 +4,13 @@ import {Component} from '@angular/core';
   selector: 'property-binding-example',
   templateUrl: 'app/binding-examples/property-binding-example.component.html'
 })
-export class PropertyBindingExampleComponent {
+export class PropertyBindingExampleComponent implements OnInit {
 
   batman:Object;
   isBtnDisabled:boolean;
   image:Object;
 
-  constructor() {
+  ngOnInit(): void {
     this.batman = {name: "Batman!!!"};
     this.isBtnDisabled = true;
     this.image = {
