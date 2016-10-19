@@ -7,9 +7,14 @@
             {{todo.title}}
         </strong>
         <div class="desc">{{todo.description}}</div>
-        <button>Edit</button>
+        <button (click)="edit(todo.id)">Edit</button>
         <button (click)="remove(todo.id)">Remove</button>
       </div>
+      <edit-todo *ngIf="underEdit[todo.id]"
+          [todo]="todo"
+          (updated)="update($event)"
+          (cancelled)="hideEdit($event)">
+      </edit-todo>
     </li>
   </ol>
   <div>
