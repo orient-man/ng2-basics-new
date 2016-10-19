@@ -4,16 +4,16 @@
     <li *ngFor="let todo of todos">
       <div class="todo-item">
         <strong class="title">
-            {{todo.title}}
+            {{todo.item.title}}
         </strong>
-        <div class="desc">{{todo.description}}</div>
-        <button (click)="edit(todo.id)">Edit</button>
-        <button (click)="remove(todo.id)">Remove</button>
+        <div class="desc">{{todo.item.description}}</div>
+        <button (click)="edit(todo)">Edit</button>
+        <button (click)="remove(todo)">Remove</button>
       </div>
-      <edit-todo *ngIf="underEdit[todo.id]"
-          [todo]="todo"
-          (updated)="update($event)"
-          (cancelled)="hideEdit($event)">
+      <edit-todo *ngIf="todo.underEdit"
+          [todo]="todo.item"
+          (updated)="update(todo, $event)"
+          (cancelled)="cancelEdit(todo)">
       </edit-todo>
     </li>
   </ol>

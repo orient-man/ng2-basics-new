@@ -2,59 +2,60 @@ import { Component, OnInit } from '@angular/core'
 import { Todo } from './todo'
 import { ALL_TODOS } from './todos.service'
 
+interface TodoViewModel {
+    item: Todo;
+    underEdit: boolean;
+}
+
 @Component({
     selector: 'todos-list',
     templateUrl: 'app/todos-list/todos-list.component.html'
 })
 export class TodosListComponent implements OnInit {
-    todos = ALL_TODOS;
-    underEdit: boolean[] = [];
+    todos: TodoViewModel[];
     title: string;
     desc: string;
 
     constructor() { }
 
     ngOnInit() {
-        console.log('Init... ')
-        console.log(this.todos);
-
         this.title = "";
         this.desc = "";
-        this.todos.forEach(todo => this.hideEdit(todo.id));
+        this.todos =
+            ALL_TODOS.map(todo => <TodoViewModel>{ item: todo, underEdit: false });
     }
 
     add() {
-        let maxId = this.todos.reduce((max, el) => el.id > max ? el.id : max, 0);
-        this.todos.push({
-            id: maxId + 1,
-            title: this.title,
-            description: this.desc,
-            isFinished: false
+        let maxId =
+            this.todos.reduce(
+                (max, el) => el.item.id > max ? el.item.id : max,
+                0);
+
+        this.todos.push(<TodoViewModel>{
+            item: {
+                id: maxId + 1,
+                title: this.title,
+                description: this.desc,
+                isFinished: false
+            },
+            underEdit: false
         });
-        this.hideEdit(maxId + 1);
     }
 
-    edit(id: number) {
-        console.log('Editing...');
-        this.underEdit[id] = true;
+    edit(todo: TodoViewModel) {
+        todo.underEdit = true;
     }
 
-    update(todo: Todo) {
-        console.log('Updating...');
-        this.hideEdit(todo.id);
-        let el = this.todos.find(el => el.id == todo.id);
-        Object.assign(el, todo);
+    cancelEdit(todo: TodoViewModel) {
+        todo.underEdit = false;
     }
 
-    hideEdit(id: number) {
-        console.log('Hiding...');
-        this.underEdit[id] = false;
+    update(todo: TodoViewModel, item: Todo) {
+        todo.underEdit = false;
+        todo.item = item;
     }
 
-    remove(id: number) {
-        console.log('Removing... ');
-        let elem = this.todos.find(el => el.id == id);
-        this.todos.splice(this.todos.indexOf(elem), 1);
+    remove(todo: TodoViewModel) {
+        this.todos.splice(this.todos.indexOf(todo), 1);
     }
 }
-
