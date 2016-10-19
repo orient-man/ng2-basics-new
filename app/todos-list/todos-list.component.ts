@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core'
-import {ALL_TODOS} from './todos.service'
+import { Todo } from './todo'
+import { ALL_TODOS } from './todos.service'
 
 @Component({
     selector: 'todos-list',
@@ -11,25 +12,25 @@ export class TodosListComponent implements OnInit {
     desc: string;
 
     constructor() { }
+
     ngOnInit() {
+        console.log('Init... ')
         console.log(this.todos);
     }
 
     add() {
-        let maxId =
-            this.todos.reduce(
-                (curr, elem) => elem.id > curr ? elem.id : curr,
-                0);
+        let maxId = this.todos.reduce((max, el) => el.id > max ? el.id : max, 0);
         this.todos.push({
             id: maxId + 1,
             title: this.title,
-            desc: this.desc
+            description: this.desc,
+            isFinished: false
         });
     }
 
-    remove(id) {
-        let elem = this.todos.find(elem => elem.id == id);
-        console.log('Removing... ' + elem.id);
+    remove(id: number) {
+        console.log('Removing... ');
+        let elem = this.todos.find(el => el.id == id);
         this.todos.splice(this.todos.indexOf(elem), 1);
     }
 }

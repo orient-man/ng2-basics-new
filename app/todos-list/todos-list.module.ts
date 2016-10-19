@@ -7,7 +7,7 @@ import { TodosListComponent } from './todos-list.component'
 
 @NgModule({
     imports: [CommonModule, FormsModule],
-    exports: [CommonModule, FormsModule, EditTodoComponent, TodosListComponent],
+    exports: [CommonModule, FormsModule, TodosListComponent],
     declarations: [EditTodoComponent, TodosListComponent],
     providers: [],
 })
