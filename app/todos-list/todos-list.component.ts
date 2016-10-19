@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core'
+import { Component, OnInit, Inject } from '@angular/core'
 import { Todo } from './todo'
-import { ALL_TODOS } from './todos.service'
+import { TodosService, TodosServiceToken } from './todos.service'
 
 interface TodoViewModel {
     item: Todo;
@@ -16,28 +16,20 @@ export class TodosListComponent implements OnInit {
     title: string;
     desc: string;
 
-    constructor() { }
+    constructor(@Inject(TodosServiceToken) private service: TodosService) { }
 
     ngOnInit() {
         this.title = "";
         this.desc = "";
         this.todos =
-            ALL_TODOS.map(todo => <TodoViewModel>{ item: todo, underEdit: false });
+            this.service
+                .getAll()
+                .map(todo => <TodoViewModel>{ item: todo, underEdit: false });
     }
 
     add() {
-        let maxId =
-            this.todos.reduce(
-                (max, el) => el.item.id > max ? el.item.id : max,
-                0);
-
         this.todos.push(<TodoViewModel>{
-            item: {
-                id: maxId + 1,
-                title: this.title,
-                description: this.desc,
-                isFinished: false
-            },
+            item: this.service.insert(this.title, this.desc),
             underEdit: false
         });
     }
@@ -51,11 +43,13 @@ export class TodosListComponent implements OnInit {
     }
 
     update(todo: TodoViewModel, item: Todo) {
+        this.service.update(item);
         todo.underEdit = false;
         todo.item = item;
     }
 
     remove(todo: TodoViewModel) {
+        this.service.delete(todo.item);
         this.todos.splice(this.todos.indexOf(todo), 1);
     }
 }

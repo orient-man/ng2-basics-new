@@ -1,11 +1,11 @@
+import {OpaqueToken} from "@angular/core";
 import {Todo} from "./todo";
 
-export let ALL_TODOS: Todo[] = [
-  {id: 100, isFinished: false, title: "Buy milk", description: "Buy milk 2%"},
-  {id: 101, isFinished: false, title: "Buy butter", description: "3 cubes"},
-  {id: 102, isFinished: false, title: "Buy bread"},
-  {id: 103, isFinished: false, title: "Wash car"}
-];
+export interface TodosService {
+    getAll(): Todo[];
+    insert(title: string, desc: string): Todo;
+    update(todo: Todo): void;
+    delete(todo: Todo): void;
+}
 
-
-//TODO
+export const TodosServiceToken = new OpaqueToken('TodosService');
